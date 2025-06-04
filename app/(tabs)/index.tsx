@@ -3,6 +3,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image } from 'expo-image';
+import { useRouter } from 'expo-router';
 import { XMLParser } from 'fast-xml-parser';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Button, NativeEventEmitter, NativeModules, StyleSheet, View } from 'react-native';
@@ -67,6 +68,7 @@ export default function HomeScreen() {
   const [isDiscovering, setIsDiscovering] = useState(false);
   const [discoveryProgress, setDiscoveryProgress] = useState(0);
   const [selectedDevice, setSelectedDevice] = useState<Device | null>(null);
+  const router = useRouter();
 
   const intervalRef = useRef<NodeJS.Timer | null>(null);
 
@@ -188,6 +190,7 @@ export default function HomeScreen() {
             onPress={() => {
               console.log("Connected to device " + JSON.stringify(selectedDevice) );
               saveSelectedDevice(selectedDevice);
+              router.push('/rcu');
             }} />
         )
       }
